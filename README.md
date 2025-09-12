@@ -1,6 +1,5 @@
 # ToDos
 
-## Git push
 ## logo correct incl monochrome adaptive
 ## lowest =grey ; highest white
 ## rethink keys for low high brightness / red
