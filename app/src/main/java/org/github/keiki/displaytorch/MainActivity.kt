@@ -1,11 +1,17 @@
 package org.github.keiki.displaytorch
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import kotlin.Boolean
+import kotlin.Float
+import kotlin.Int
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -86,18 +92,24 @@ class MainActivity : AppCompatActivity() {
         window.attributes = layoutParams
     }
 
+    @OptIn(ExperimentalStdlibApi::class)
     private fun updateBrightnessText() {
         val brightnessTextView: TextView = findViewById(R.id.brightnessTextView)
-        val brightnessPercentage = (brightnessLevels[currentBrightnessIndex].brightness * 100).toInt()
 
         var debugText = ""
 
         if (DEBUG) {
-            debugText =     " Brightness: $brightnessPercentage%"
+            val brightnessPercentage = (brightnessLevels[currentBrightnessIndex].brightness * 100).toInt()
+
+            val backgroundColor = getRootView().getBackgroundColor()
+            val colorHex = Color.valueOf(backgroundColor).toArgb().toHexString(HexFormat.Default).takeLast(6)
+            debugText =     " Brightness: $brightnessPercentage% ; Color : #$colorHex"
         }
 
         brightnessTextView.text = "Step ${currentBrightnessIndex + 1}" + debugText
     }
+
+    fun View.getBackgroundColor() = (background as? ColorDrawable?)?.color ?: Color.TRANSPARENT
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         return when (keyCode) {
