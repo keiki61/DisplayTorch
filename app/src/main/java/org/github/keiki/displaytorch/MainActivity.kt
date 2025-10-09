@@ -8,10 +8,11 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import kotlin.Boolean
-import kotlin.Float
-import kotlin.Int
 
+
+private const val KEY_BUNDLE = "brightnessIndex"
+
+private const val DEFAULT_INDEX = 0
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         BrightnessStep(0.5f, R.color.white),
         BrightnessStep(1.0f, R.color.white)
     )
-    private var currentBrightnessIndex = 0
+    private var currentBrightnessIndex = DEFAULT_INDEX
     private var currentBackGroundColorWhite = true
 
 
@@ -45,13 +46,15 @@ class MainActivity : AppCompatActivity() {
         rootView.setOnClickListener {
             toggleBrightness()
         }
-
-        // Update the initial text
-        updateBrightnessText()
+        currentBrightnessIndex = savedInstanceState?.getInt(KEY_BUNDLE) ?: DEFAULT_INDEX
+        setBrightnessIndex(currentBrightnessIndex)
 
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
-
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(KEY_BUNDLE, currentBrightnessIndex)
+    }
     private fun toggleBrightness() {
         currentBrightnessIndex = (currentBrightnessIndex + 1) % brightnessLevels.size
         setBrightnessIndex(currentBrightnessIndex)
@@ -60,17 +63,6 @@ class MainActivity : AppCompatActivity() {
     private fun setBrightnessIndex(index: Int) {
         setScreenBrightness(brightnessLevels[index])
         updateBrightnessText()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        setBrightnessIndex(0)
-    }
-
-
-    override fun onPause() {
-        super.onPause()
-        resetScreenBrightness()
     }
 
     private fun setScreenBrightness(brightnessStep: BrightnessStep) {
@@ -83,12 +75,6 @@ class MainActivity : AppCompatActivity() {
         } else {
             rootView.setBackgroundColor(getColor(brightnessStep.shadeRed))
         }
-        window.attributes = layoutParams
-    }
-
-    private fun resetScreenBrightness() {
-        val layoutParams = window.attributes
-        layoutParams.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE
         window.attributes = layoutParams
     }
 
