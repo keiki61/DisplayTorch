@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DisplayTorch</string>
+    <string name="step_label">Step %1$d%2$s%3$s</string>
 </resources>

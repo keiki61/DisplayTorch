@@ -1,7 +1,7 @@
 package org.github.keiki.displaytorch
 
-import android.content.Context
 import android.graphics.Color
+import androidx.core.content.edit
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.GestureDetector
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         val rootView: View = findViewById(android.R.id.content)
-        rootView.setOnTouchListener { _, event ->
+        rootView.setOnTouchListener { v, event ->
             when (event.actionMasked) {
                 MotionEvent.ACTION_POINTER_DOWN -> if (event.pointerCount == 2) {
                     twoFingerTouching = true
@@ -76,6 +76,8 @@ class MainActivity : AppCompatActivity() {
                     twoFingerTouching = false
                     toggleColor()
                     return@setOnTouchListener true
+                } else {
+                    v.performClick()
                 }
                 MotionEvent.ACTION_CANCEL -> twoFingerTouching = false
             }
@@ -138,16 +140,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadBrightnessPrefs() {
-        val prefs = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        val prefs = getSharedPreferences(PREF_NAME, MODE_PRIVATE)
         brightnessLevels.forEachIndexed { i, step ->
             step.brightness = prefs.getFloat("brightness_$i", step.brightness)
         }
     }
 
     private fun saveBrightnessPrefs() {
-        val prefs = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).edit()
-        brightnessLevels.forEachIndexed { i, step -> prefs.putFloat("brightness_$i", step.brightness) }
-        prefs.apply()
+        getSharedPreferences(PREF_NAME, MODE_PRIVATE).edit {
+            brightnessLevels.forEachIndexed { i, step -> putFloat("brightness_$i", step.brightness) }
+        }
     }
 
     @OptIn(ExperimentalStdlibApi::class)
@@ -163,7 +165,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val editText = if (isEditMode) " [EDIT]" else ""
-        brightnessTextView.text = "Step ${currentBrightnessIndex + 1}$editText$debugText"
+        brightnessTextView.text = getString(R.string.step_label, currentBrightnessIndex + 1, editText, debugText)
     }
 
     fun View.getBackgroundColor() = (background as? ColorDrawable?)?.color ?: Color.TRANSPARENT
