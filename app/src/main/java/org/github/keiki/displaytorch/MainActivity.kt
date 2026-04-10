@@ -46,6 +46,10 @@ class MainActivity : AppCompatActivity() {
         rootView.setOnClickListener {
             toggleBrightness()
         }
+        rootView.setOnLongClickListener {
+            toggleColor()
+            true
+        }
         currentBrightnessIndex = savedInstanceState?.getInt(KEY_BUNDLE) ?: DEFAULT_INDEX
         setBrightnessIndex(currentBrightnessIndex)
 
@@ -97,22 +101,24 @@ class MainActivity : AppCompatActivity() {
 
     fun View.getBackgroundColor() = (background as? ColorDrawable?)?.color ?: Color.TRANSPARENT
 
+    private fun toggleColor() {
+        currentBackGroundColorWhite = !currentBackGroundColorWhite
+        setScreenBrightness(brightnessLevels[currentBrightnessIndex])
+        updateBrightnessText()
+    }
+
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         return when (keyCode) {
-            KeyEvent.KEYCODE_VOLUME_UP, KeyEvent.KEYCODE_VOLUME_DOWN -> {
-
-                val rootView: View = getRootView()
-
-                if (currentBackGroundColorWhite) {
-                    rootView.setBackgroundColor(getColor(R.color.red))
-                    currentBackGroundColorWhite = false
-                } else {
-                    rootView.setBackgroundColor(getColor(brightnessLevels[currentBrightnessIndex].shadeWhite))
-                    currentBackGroundColorWhite = true
-                }
-                true // Indicate event is handled
+            KeyEvent.KEYCODE_VOLUME_UP -> {
+                currentBrightnessIndex = (currentBrightnessIndex + 1) % brightnessLevels.size
+                setBrightnessIndex(currentBrightnessIndex)
+                true
             }
-
+            KeyEvent.KEYCODE_VOLUME_DOWN -> {
+                currentBrightnessIndex = (currentBrightnessIndex - 1 + brightnessLevels.size) % brightnessLevels.size
+                setBrightnessIndex(currentBrightnessIndex)
+                true
+            }
             else -> super.onKeyDown(keyCode, event)
         }
     }
