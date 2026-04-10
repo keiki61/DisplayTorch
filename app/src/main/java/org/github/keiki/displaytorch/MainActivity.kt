@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
     private var currentBrightnessIndex = DEFAULT_INDEX
     private var currentBackGroundColorWhite = true
     private var isEditMode = false
+    private var twoFingerTouching = false
 
     private lateinit var gestureDetector: GestureDetector
 
@@ -52,12 +53,8 @@ class MainActivity : AppCompatActivity() {
         loadBrightnessPrefs()
 
         gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
-            override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+            override fun onSingleTapUp(e: MotionEvent): Boolean {
                 if (isEditMode) toggleEditMode() else toggleBrightness()
-                return true
-            }
-            override fun onDoubleTap(e: MotionEvent): Boolean {
-                toggleColor()
                 return true
             }
             override fun onLongPress(e: MotionEvent) {
@@ -66,7 +63,25 @@ class MainActivity : AppCompatActivity() {
         })
 
         val rootView: View = findViewById(android.R.id.content)
-        rootView.setOnTouchListener { _, event -> gestureDetector.onTouchEvent(event); true }
+        rootView.setOnTouchListener { _, event ->
+            when (event.actionMasked) {
+                MotionEvent.ACTION_POINTER_DOWN -> if (event.pointerCount == 2) {
+                    twoFingerTouching = true
+                    // Cancel any pending single-tap in the gesture detector
+                    val cancel = MotionEvent.obtain(event).apply { action = MotionEvent.ACTION_CANCEL }
+                    gestureDetector.onTouchEvent(cancel)
+                    cancel.recycle()
+                }
+                MotionEvent.ACTION_UP -> if (twoFingerTouching) {
+                    twoFingerTouching = false
+                    toggleColor()
+                    return@setOnTouchListener true
+                }
+                MotionEvent.ACTION_CANCEL -> twoFingerTouching = false
+            }
+            if (!twoFingerTouching) gestureDetector.onTouchEvent(event)
+            true
+        }
 
         currentBrightnessIndex = savedInstanceState?.getInt(KEY_BRIGHTNESS_INDEX) ?: DEFAULT_INDEX
         currentBackGroundColorWhite = savedInstanceState?.getBoolean(KEY_COLOR_WHITE) ?: true
