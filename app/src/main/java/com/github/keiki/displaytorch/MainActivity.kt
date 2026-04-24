@@ -1,4 +1,4 @@
-package org.github.keiki.displaytorch
+package com.github.keiki.displaytorch
 
 import android.graphics.Color
 import androidx.core.content.edit
@@ -21,10 +21,6 @@ private const val DEFAULT_INDEX = 0
 private const val EDIT_BRIGHTNESS_STEP = 0.01f
 
 class MainActivity : AppCompatActivity() {
-
-    companion object {
-        const val DEBUG: Boolean = true
-    }
 
     class BrightnessStep(
         var brightness: Float,
@@ -157,7 +153,7 @@ class MainActivity : AppCompatActivity() {
         val brightnessTextView: TextView = findViewById(R.id.brightnessTextView)
 
         var debugText = ""
-        if (DEBUG) {
+        if (BuildConfig.DEBUG) {
             val brightnessPercentage = (brightnessLevels[currentBrightnessIndex].brightness * 100).toInt()
             val backgroundColor = getRootView().getBackgroundColor()
             val colorHex = Color.valueOf(backgroundColor).toArgb().toHexString(HexFormat.Default).takeLast(6)
