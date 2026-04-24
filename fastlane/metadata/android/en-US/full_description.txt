@@ -1,0 +1,19 @@
+Display Torch turns your phone's screen into a simple, configurable flashlight. No camera flash, no permissions, no ads, no tracking, no network access.
+
+Features:
+
+• Screen as a torch — the entire display becomes a bright light source.
+• Five brightness steps — tap the screen to cycle through them.
+• White or red light — two-finger tap toggles between a bright white torch and a dim red light (great for preserving night vision when reading maps or in the dark).
+• Volume keys — use Volume Up and Volume Down to step through brightness levels without taking your eyes off the screen.
+• Edit mode — long-press to enter edit mode, then fine-tune the current step's brightness with the volume keys. Your adjustments are saved automatically.
+• Screen stays on while the app is in the foreground.
+
+Why use a display flashlight instead of the camera torch?
+
+• Gentle, wide-area light — better for reading, finding things in a bag, or moving around a dark room than a narrow LED beam.
+• Perfect for walking through the house at night while the kids are sleeping: dim enough not to wake anyone, bright enough to see where you're going.
+• Red mode is handy for astronomy, camping, and night navigation, and is especially kind to sleepy eyes.
+• Works on devices without a camera flash.
+
+Display Torch is open source (0BSD license). It requests no permissions, connects to no servers, and ships no analytics or advertising SDKs.
