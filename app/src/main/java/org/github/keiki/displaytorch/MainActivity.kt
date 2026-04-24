@@ -18,7 +18,7 @@ private const val KEY_BRIGHTNESS_INDEX = "brightnessIndex"
 private const val KEY_COLOR_WHITE = "colorWhite"
 private const val PREF_NAME = "brightness_prefs"
 private const val DEFAULT_INDEX = 0
-private const val EDIT_BRIGHTNESS_STEP = 0.05f
+private const val EDIT_BRIGHTNESS_STEP = 0.01f
 
 class MainActivity : AppCompatActivity() {
 
