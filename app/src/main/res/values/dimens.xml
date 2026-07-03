@@ -1,0 +1,3 @@
+<resources>
+    <dimen name="edit_menu_button_margin">16dp</dimen>
+</resources>

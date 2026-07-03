@@ -9,10 +9,14 @@ import android.view.HapticFeedbackConstants
 import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
@@ -85,7 +89,16 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        findViewById<View>(R.id.resetMenuButton).setOnClickListener { showResetMenu(it) }
+        val resetMenuButton = findViewById<View>(R.id.resetMenuButton)
+        resetMenuButton.setOnClickListener { showResetMenu(it) }
+        ViewCompat.setOnApplyWindowInsetsListener(resetMenuButton) { view, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            val baseMargin = resources.getDimensionPixelSize(R.dimen.edit_menu_button_margin)
+            view.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                topMargin = systemBars.top + baseMargin
+            }
+            insets
+        }
 
         currentBrightnessIndex = savedInstanceState?.getInt(KEY_BRIGHTNESS_INDEX) ?: DEFAULT_INDEX
         currentBackGroundColorWhite = savedInstanceState?.getBoolean(KEY_COLOR_WHITE) ?: true
