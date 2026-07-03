@@ -202,17 +202,23 @@ class MainActivity : AppCompatActivity() {
     @OptIn(ExperimentalStdlibApi::class)
     private fun updateBrightnessText() {
         val brightnessTextView: TextView = findViewById(R.id.brightnessTextView)
+        val debugInfoTextView: TextView = findViewById(R.id.debugInfoTextView)
 
-        var debugText = ""
         if (BuildConfig.DEBUG) {
             val brightnessPercentage = (brightnessLevels[currentBrightnessIndex].brightness * 100).toInt()
             val backgroundColor = getRootView().getBackgroundColor()
             val colorHex = Color.valueOf(backgroundColor).toArgb().toHexString(HexFormat.Default).takeLast(6)
-            debugText = " Brightness: $brightnessPercentage% ; Color : #$colorHex"
+            debugInfoTextView.text = getString(R.string.debug_info_label, brightnessPercentage, colorHex)
+            debugInfoTextView.visibility = View.VISIBLE
         }
 
         val editText = if (isEditMode) " [EDIT]" else ""
-        brightnessTextView.text = getString(R.string.step_label, currentBrightnessIndex + 1, editText, debugText)
+        brightnessTextView.text = getString(
+            R.string.step_label,
+            currentBrightnessIndex + 1,
+            brightnessLevels.size,
+            editText
+        )
     }
 
     fun View.getBackgroundColor() = (background as? ColorDrawable?)?.color ?: Color.TRANSPARENT
