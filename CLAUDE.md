@@ -29,6 +29,8 @@ DisplayTorch is a minimal single-activity Android app that uses the screen as a 
 | Long press | Enter edit mode | Exit edit mode |
 | Volume up/down | Cycle brightness steps | Fine-adjust current step's brightness by ±`EDIT_BRIGHTNESS_STEP` (0.05) |
 
+Edit mode also reveals a small `⋮` overflow-menu button (top-end corner) with a "Reset to defaults" action, guarded by a confirmation dialog, that restores all 5 brightness steps.
+
 **Color modes:** White mode uses per-step shades (grey → greyWhite → white). Red mode always uses `R.color.red` (`#8B0000`), intended for preserving night vision.
 
 **Debug overlay:** Gated on `BuildConfig.DEBUG` — debug builds show the current brightness % and background color hex in the center `TextView`. Release builds suppress it automatically.

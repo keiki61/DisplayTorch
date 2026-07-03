@@ -10,8 +10,10 @@ import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
+import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
 private const val KEY_BRIGHTNESS_INDEX = "brightnessIndex"
@@ -28,12 +30,14 @@ class MainActivity : AppCompatActivity() {
         val shadeRed: Int = R.color.red
     )
 
+    private val defaultBrightnessValues = listOf(0.02f, 0.1f, 0.3f, 0.5f, 1.0f)
+
     private val brightnessLevels = mutableListOf(
-        BrightnessStep(0.02f, R.color.grey),
-        BrightnessStep(0.1f, R.color.greyWhite),
-        BrightnessStep(0.3f, R.color.greyWhite),
-        BrightnessStep(0.5f, R.color.white),
-        BrightnessStep(1.0f, R.color.white)
+        BrightnessStep(defaultBrightnessValues[0], R.color.grey),
+        BrightnessStep(defaultBrightnessValues[1], R.color.greyWhite),
+        BrightnessStep(defaultBrightnessValues[2], R.color.greyWhite),
+        BrightnessStep(defaultBrightnessValues[3], R.color.white),
+        BrightnessStep(defaultBrightnessValues[4], R.color.white)
     )
     private var currentBrightnessIndex = DEFAULT_INDEX
     private var currentBackGroundColorWhite = true
@@ -81,6 +85,8 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+        findViewById<View>(R.id.resetMenuButton).setOnClickListener { showResetMenu(it) }
+
         currentBrightnessIndex = savedInstanceState?.getInt(KEY_BRIGHTNESS_INDEX) ?: DEFAULT_INDEX
         currentBackGroundColorWhite = savedInstanceState?.getBoolean(KEY_COLOR_WHITE) ?: true
         setBrightnessIndex(currentBrightnessIndex)
@@ -125,7 +131,32 @@ class MainActivity : AppCompatActivity() {
     private fun toggleEditMode() {
         isEditMode = !isEditMode
         getRootView().performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
+        findViewById<View>(R.id.resetMenuButton).visibility = if (isEditMode) View.VISIBLE else View.GONE
         updateBrightnessText()
+    }
+
+    private fun showResetMenu(anchor: View) {
+        PopupMenu(this, anchor).apply {
+            menuInflater.inflate(R.menu.edit_mode_menu, menu)
+            setOnMenuItemClickListener { item ->
+                if (item.itemId == R.id.action_reset) {
+                    showResetConfirmationDialog()
+                    true
+                } else {
+                    false
+                }
+            }
+            show()
+        }
+    }
+
+    private fun showResetConfirmationDialog() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.reset_confirm_title)
+            .setMessage(R.string.reset_confirm_message)
+            .setPositiveButton(R.string.action_reset) { _, _ -> resetBrightnessPrefs() }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
     }
 
     private fun adjustCurrentStepBrightness(delta: Float) {
@@ -146,6 +177,13 @@ class MainActivity : AppCompatActivity() {
         getSharedPreferences(PREF_NAME, MODE_PRIVATE).edit {
             brightnessLevels.forEachIndexed { i, step -> putFloat("brightness_$i", step.brightness) }
         }
+    }
+
+    private fun resetBrightnessPrefs() {
+        brightnessLevels.forEachIndexed { i, step -> step.brightness = defaultBrightnessValues[i] }
+        saveBrightnessPrefs()
+        getRootView().performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
+        setBrightnessIndex(currentBrightnessIndex)
     }
 
     @OptIn(ExperimentalStdlibApi::class)
