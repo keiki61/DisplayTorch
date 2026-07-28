@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">DisplayTorch</string>
-    <string name="step_label">Step %1$d of %2$d%3$s</string>
+    <string name="step_label">Step %1$d of %2$d</string>
+    <string name="edit_mode_label">%1$d%% · EDIT</string>
     <string name="debug_info_label">Brightness: %1$d%% ; Color : #%2$s</string>
     <string name="edit_menu_button_glyph">⋮</string>
     <string name="edit_menu_button_description">Options</string>
