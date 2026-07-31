@@ -20,6 +20,12 @@ android {
         buildConfig = true
     }
 
+    androidResources {
+        // Erzeugt locales_config.xml aus den vorhandenen values-*-Ordnern, damit
+        // Android 13+ die App in der Sprachauswahl der Systemeinstellungen fuehrt.
+        generateLocaleConfig = true
+    }
+
     val releaseStoreFile = (findProperty("DISPLAYTORCH_STORE_FILE") as String?)?.let(::file)
     val releaseStorePassword = findProperty("DISPLAYTORCH_STORE_PASSWORD") as String?
     val releaseKeyAlias = findProperty("DISPLAYTORCH_KEY_ALIAS") as String?
