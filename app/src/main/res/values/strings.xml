@@ -9,4 +9,5 @@
     <string name="reset_confirm_title">Reset brightness steps?</string>
     <string name="reset_confirm_message">This restores all 5 brightness steps to their default values.</string>
     <string name="action_reset">Reset</string>
+    <string name="tile_label">Torch</string>
 </resources>
