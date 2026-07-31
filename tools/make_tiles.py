@@ -38,7 +38,9 @@ TILES = [
     ("1.jpg", "Fünf Helligkeits-\nstufen — antippen", "Five brightness\nsteps — just tap"),
     ("5.jpg", "Rotlicht schont\ndie Nachtsicht", "Red light preserves\nnight vision"),
     ("3.jpg", "Jede Stufe\nfein justierbar", "Fine-tune\nevery step"),
-    ("4.jpg", "Keine Berechtigungen.\nKeine Werbung.\nKein Tracking.",
+    # Die Datenschutz-Aussage laesst sich durch keinen Screen belegen. Die hellste,
+    # leere Flaeche traegt sie am besten, auch wenn sie dadurch zweimal vorkommt.
+    ("2.jpg", "Keine Berechtigungen.\nKeine Werbung.\nKein Tracking.",
               "No permissions.\nNo ads.\nNo tracking."),
 ]
 
