@@ -58,5 +58,5 @@ be updated and the "Effective date" above will change accordingly.
 
 ## Contact
 
-Questions about this policy can be sent to otakun85@gmail.com or raised as
+Questions about this policy can be sent to displaytorch.app@gmail.com or raised as
 an issue on the [GitHub repository](https://github.com/keiki61/DisplayTorch/issues).
