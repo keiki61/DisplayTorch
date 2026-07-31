@@ -40,7 +40,7 @@ The output APK ends up under `app/build/outputs/apk/`.
 
 ## Requirements
 
-- Android 7.0 (API 24) or newer.
+- Android 8.0 (API 26) or newer.
 
 ## License
 

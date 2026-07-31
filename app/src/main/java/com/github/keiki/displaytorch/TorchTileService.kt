@@ -1,5 +1,6 @@
 package com.github.keiki.displaytorch
 
+import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Intent
 import android.os.Build
@@ -37,6 +38,7 @@ class TorchTileService : TileService() {
     }
 
     @Suppress("DEPRECATION")
+    @SuppressLint("StartActivityAndCollapseDeprecated")
     private fun startActivityAndCollapseLegacy(intent: Intent) {
         startActivityAndCollapse(intent)
     }

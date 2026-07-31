@@ -38,7 +38,7 @@ Edit mode also reveals a small `⋮` overflow-menu button (top-end corner) with 
 ## Key constraints
 
 - Package / applicationId: `com.github.keiki.displaytorch`.
-- `minSdk = 24` (Android 7.0), `compileSdk = targetSdk = 36`.
+- `minSdk = 26` (Android 8.0), `compileSdk = targetSdk = 36`.
 - AGP `9.2.0`, Kotlin `2.2.10`, JVM target 11.
 - Release builds enable `isMinifyEnabled` and `isShrinkResources` — keep reflection-using code reachable via `proguard-rules.pro` if any is added.
 - License: 0BSD (`LICENSE` at repo root).
