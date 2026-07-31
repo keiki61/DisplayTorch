@@ -1,0 +1,20 @@
+Display Torch macht den Bildschirm deines Handys zur konfigurierbaren Taschenlampe. Ohne Kamera-Blitz, ohne Berechtigungen, ohne Werbung, ohne Tracking, ohne Internetzugriff.
+
+Funktionen:
+
+• Bildschirm als Taschenlampe – das gesamte Display wird zur Lichtquelle.
+• Fünf Helligkeitsstufen – auf den Bildschirm tippen, um durchzuschalten.
+• Weißes oder rotes Licht – Tippen mit zwei Fingern wechselt zwischen heller weißer Taschenlampe und gedimmtem Rotlicht (schont die Nachtsicht, etwa beim Kartenlesen im Dunkeln).
+• Lautstärketasten – mit Lauter und Leiser durch die Helligkeitsstufen schalten, ohne den Blick vom Bildschirm zu nehmen.
+• Bearbeitungsmodus – langes Drücken öffnet den Bearbeitungsmodus, dort lässt sich die Helligkeit der aktuellen Stufe mit den Lautstärketasten fein einstellen. Änderungen werden automatisch gespeichert.
+• Der Bildschirm bleibt an, solange die App im Vordergrund läuft.
+
+Warum eine Bildschirm-Taschenlampe statt der Kamera-Lampe?
+
+• Weiches statt grelles Licht – die Kamera-LED wirft einen harten, gebündelten Strahl, der dich und alle um dich herum blendet. Stattdessen leuchtet das gesamte Display gleichmäßig: breit, diffus und blendfrei.
+• Angenehmer zum Lesen, zum Suchen in einer Tasche oder zum Durchqueren eines dunklen Raums als ein schmaler LED-Strahl. Auf der niedrigsten Stufe ein weiches Leselicht fürs Bett.
+• Als Nachtlicht ideal, um nachts durchs Haus zu gehen, während die Kinder schlafen: dunkel genug, um niemanden zu wecken, hell genug, um etwas zu sehen.
+• Der Rotlichtmodus eignet sich für Astronomie, Camping und Navigation bei Nacht – und ist besonders angenehm für müde Augen.
+• Funktioniert auch auf Geräten ohne Kamera-Blitz.
+
+Display Torch ist Open Source (0BSD-Lizenz). Die App fordert keine Berechtigungen an, verbindet sich mit keinem Server und enthält keine Analyse- oder Werbe-SDKs.

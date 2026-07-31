@@ -1,0 +1,10 @@
+<resources>
+    <string name="step_label">Stufe %1$d von %2$d</string>
+    <string name="edit_mode_label">%1$d%% · BEARBEITEN</string>
+    <string name="edit_menu_button_description">Optionen</string>
+    <string name="reset_defaults">Auf Standardwerte zurücksetzen</string>
+    <string name="reset_confirm_title">Helligkeitsstufen zurücksetzen?</string>
+    <string name="reset_confirm_message">Dadurch werden alle 5 Helligkeitsstufen auf ihre Standardwerte zurückgesetzt.</string>
+    <string name="action_reset">Zurücksetzen</string>
+    <string name="tile_label">Taschenlampe</string>
+</resources>
