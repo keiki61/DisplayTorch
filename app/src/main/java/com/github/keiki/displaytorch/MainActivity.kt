@@ -17,6 +17,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
@@ -25,6 +29,8 @@ private const val KEY_COLOR_WHITE = "colorWhite"
 private const val PREF_NAME = "brightness_prefs"
 private const val DEFAULT_INDEX = 0
 private const val EDIT_BRIGHTNESS_STEP = 0.01f
+// Google sample ad unit (adaptive banner): only serves test ads, replace before any release
+private const val TEST_BANNER_AD_UNIT_ID = "ca-app-pub-3940256099942544/9214589741"
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,6 +55,7 @@ class MainActivity : AppCompatActivity() {
     private var twoFingerTouching = false
 
     private lateinit var gestureDetector: GestureDetector
+    private var adView: AdView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,6 +112,47 @@ class MainActivity : AppCompatActivity() {
         setBrightnessIndex(currentBrightnessIndex)
 
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+
+        setupAdBanner()
+    }
+
+    private fun setupAdBanner() {
+        val adContainer = findViewById<ViewGroup>(R.id.adContainer)
+        ViewCompat.setOnApplyWindowInsetsListener(adContainer) { view, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin = systemBars.bottom
+            }
+            insets
+        }
+        MobileAds.initialize(this)
+        adContainer.post {
+            val adWidthDp = (adContainer.width / resources.displayMetrics.density).toInt()
+            if (adWidthDp <= 0) return@post
+            val banner = AdView(this).apply {
+                adUnitId = TEST_BANNER_AD_UNIT_ID
+                setAdSize(AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this@MainActivity, adWidthDp))
+            }
+            adView = banner
+            adContainer.addView(banner)
+            banner.loadAd(AdRequest.Builder().build())
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        adView?.resume()
+    }
+
+    override fun onPause() {
+        adView?.pause()
+        super.onPause()
+    }
+
+    override fun onDestroy() {
+        adView?.destroy()
+        adView = null
+        super.onDestroy()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
