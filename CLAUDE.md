@@ -42,4 +42,4 @@ Edit mode also reveals a small `⋮` overflow-menu button (top-end corner) with 
 - AGP `9.2.0`, Kotlin `2.2.10`, JVM target 11.
 - Release builds enable `isMinifyEnabled` and `isShrinkResources` — keep reflection-using code reachable via `proguard-rules.pro` if any is added.
 - License: 0BSD (`LICENSE` at repo root).
-- Planned: signing config for release, onboarding tutorial after first install, F-Droid and Google Play release, fastlane metadata.
+- Planned work lives in `ROADMAP.md` (monetization: ad banner + remove-ads IAP, Play release; plus onboarding tutorial, fastlane metadata).
