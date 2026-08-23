@@ -1,4 +1,4 @@
-Display Torch turns your phone's screen into a simple, configurable flashlight. No camera flash, no permissions, no ads, no tracking, no network access.
+Display Torch turns your phone's screen into a simple, configurable flashlight. No camera flash, no clutter — just your screen as a soft, even light source.
 
 Features:
 
@@ -17,4 +17,8 @@ Why use a display flashlight instead of the camera torch?
 • Red mode is handy for astronomy, camping, and night navigation, and is especially kind to sleepy eyes.
 • Works on devices without a camera flash.
 
-Display Torch is open source (0BSD license). It requests no permissions, connects to no servers, and ships no analytics or advertising SDKs.
+Free & ad-supported:
+
+Display Torch is free, supported by a small banner ad at the bottom of the screen (Google AdMob). Prefer to use it without ads? A one-time in-app purchase removes the banner for good — no subscription, no recurring charges.
+
+Display Torch is open source (0BSD license). The app itself collects no data and ships no analytics or tracking SDK of its own. It uses internet access only to display the ad (Google AdMob) and to process the optional "Remove ads" purchase through Google Play Billing — those Google services may process some data themselves. See the privacy policy linked on this listing for full details.

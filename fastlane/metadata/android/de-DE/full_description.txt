@@ -1,4 +1,4 @@
-Display Torch macht den Bildschirm deines Handys zur konfigurierbaren Taschenlampe. Ohne Kamera-Blitz, ohne Berechtigungen, ohne Werbung, ohne Tracking, ohne Internetzugriff.
+Display Torch macht den Bildschirm deines Handys zur konfigurierbaren Taschenlampe. Ohne Kamera-Blitz, ohne Schnickschnack – einfach dein Bildschirm als weiche, gleichmäßige Lichtquelle.
 
 Funktionen:
 
@@ -17,4 +17,8 @@ Warum eine Bildschirm-Taschenlampe statt der Kamera-Lampe?
 • Der Rotlichtmodus eignet sich für Astronomie, Camping und Navigation bei Nacht – und ist besonders angenehm für müde Augen.
 • Funktioniert auch auf Geräten ohne Kamera-Blitz.
 
-Display Torch ist Open Source (0BSD-Lizenz). Die App fordert keine Berechtigungen an, verbindet sich mit keinem Server und enthält keine Analyse- oder Werbe-SDKs.
+Kostenlos mit Werbung:
+
+Display Torch ist kostenlos und finanziert sich über ein kleines Werbebanner am unteren Bildschirmrand (Google AdMob). Wer die App lieber ohne Werbung nutzen möchte, kann sie über einen einmaligen In-App-Kauf dauerhaft entfernen – kein Abo, keine wiederkehrenden Kosten.
+
+Display Torch ist Open Source (0BSD-Lizenz). Die App selbst sammelt keine Daten und enthält kein eigenes Tracking oder Analyse-SDK. Internetzugriff nutzt sie ausschließlich dafür, die Werbung (Google AdMob) anzuzeigen und den optionalen „Werbung entfernen“-Kauf über Google Play Billing abzuwickeln – dabei können diese Google-Dienste selbst Daten verarbeiten. Details dazu in der auf dieser Seite verlinkten Datenschutzerklärung.
