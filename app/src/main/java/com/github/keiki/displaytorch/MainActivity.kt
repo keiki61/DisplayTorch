@@ -17,11 +17,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.ump.ConsentRequestParameters
+import com.google.android.ump.UserMessagingPlatform
 
 
 private const val KEY_BRIGHTNESS_INDEX = "brightnessIndex"
@@ -29,8 +32,6 @@ private const val KEY_COLOR_WHITE = "colorWhite"
 private const val PREF_NAME = "brightness_prefs"
 private const val DEFAULT_INDEX = 0
 private const val EDIT_BRIGHTNESS_STEP = 0.01f
-// Google sample ad unit (adaptive banner): only serves test ads, replace before any release
-private const val TEST_BANNER_AD_UNIT_ID = "ca-app-pub-3940256099942544/9214589741"
 
 class MainActivity : AppCompatActivity() {
 
@@ -55,7 +56,9 @@ class MainActivity : AppCompatActivity() {
     private var twoFingerTouching = false
 
     private lateinit var gestureDetector: GestureDetector
+    private lateinit var billingManager: BillingManager
     private var adView: AdView? = null
+    private var bannerRequested = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -113,7 +116,17 @@ class MainActivity : AppCompatActivity() {
 
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
-        setupAdBanner()
+        billingManager = BillingManager(this, lifecycleScope) { removeAdBanner() }
+        if (!billingManager.adsRemoved) {
+            setupAdBanner()
+        }
+        billingManager.start()
+    }
+
+    private fun removeAdBanner() {
+        adView?.destroy()
+        adView = null
+        findViewById<ViewGroup>(R.id.adContainer).removeAllViews()
     }
 
     private fun setupAdBanner() {
@@ -125,12 +138,36 @@ class MainActivity : AppCompatActivity() {
             }
             insets
         }
+
+        val consentInfo = UserMessagingPlatform.getConsentInformation(this)
+        consentInfo.requestConsentInfoUpdate(
+            this,
+            ConsentRequestParameters.Builder().build(),
+            {
+                UserMessagingPlatform.loadAndShowConsentFormIfRequired(this) {
+                    if (consentInfo.canRequestAds()) loadBanner()
+                }
+            },
+            {
+                // Consent info unavailable (e.g. offline); a previous session's
+                // consent may still allow ads.
+                if (consentInfo.canRequestAds()) loadBanner()
+            }
+        )
+        // Consent gathered in a previous session allows loading without waiting.
+        if (consentInfo.canRequestAds()) loadBanner()
+    }
+
+    private fun loadBanner() {
+        if (bannerRequested) return
+        bannerRequested = true
         MobileAds.initialize(this)
+        val adContainer = findViewById<ViewGroup>(R.id.adContainer)
         adContainer.post {
             val adWidthDp = (adContainer.width / resources.displayMetrics.density).toInt()
             if (adWidthDp <= 0) return@post
             val banner = AdView(this).apply {
-                adUnitId = TEST_BANNER_AD_UNIT_ID
+                adUnitId = BuildConfig.BANNER_AD_UNIT_ID
                 setAdSize(AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this@MainActivity, adWidthDp))
             }
             adView = banner
@@ -152,6 +189,7 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         adView?.destroy()
         adView = null
+        billingManager.end()
         super.onDestroy()
     }
 
@@ -199,12 +237,12 @@ class MainActivity : AppCompatActivity() {
     private fun showResetMenu(anchor: View) {
         PopupMenu(this, anchor).apply {
             menuInflater.inflate(R.menu.edit_mode_menu, menu)
+            menu.findItem(R.id.action_remove_ads).isVisible = !billingManager.adsRemoved
             setOnMenuItemClickListener { item ->
-                if (item.itemId == R.id.action_reset) {
-                    showResetConfirmationDialog()
-                    true
-                } else {
-                    false
+                when (item.itemId) {
+                    R.id.action_reset -> { showResetConfirmationDialog(); true }
+                    R.id.action_remove_ads -> { billingManager.launchPurchaseFlow(); true }
+                    else -> false
                 }
             }
             show()

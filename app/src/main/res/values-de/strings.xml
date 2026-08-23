@@ -6,5 +6,6 @@
     <string name="reset_confirm_title">Helligkeitsstufen zurücksetzen?</string>
     <string name="reset_confirm_message">Dadurch werden alle 5 Helligkeitsstufen auf ihre Standardwerte zurückgesetzt.</string>
     <string name="action_reset">Zurücksetzen</string>
+    <string name="remove_ads">Werbung entfernen</string>
     <string name="tile_label">Taschenlampe</string>
 </resources>

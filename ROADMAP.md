@@ -1,62 +1,84 @@
 # Roadmap
 
 Plan for monetizing DisplayTorch with a bottom ad banner plus a one-time
-"remove ads" in-app purchase (~€1.99). Positioning for the store listing:
+"remove ads" in-app purchase (€2.50). Positioning for the store listing:
 reading light / camping light / night light — the long-session use cases
 that make banner impressions worthwhile — rather than the saturated
 "flashlight" keyword space.
 
-**Status:** Google's *test* banner (sample App ID + adaptive banner test
-unit) is wired into the app for on-device evaluation. All real-money steps
-below are open.
+**Status:** Test-banner evaluation is done — decision is to ship ads. All
+real-money steps below (accounts, real AdMob IDs, billing, release) are
+open.
 
-## 0. Evaluate the test banner (in progress)
+## 0. Evaluate the test banner (done)
 
-- [ ] Use the app with the test banner for a few days of real scenarios
+- [x] Use the app with the test banner for a few days of real scenarios
       (reading at night, camping, low brightness, red mode) and decide:
-      ads yes/no. This is the cheap exit point.
+      ads yes/no. This is the cheap exit point. **Decision: ads yes — keep
+      the banner.**
 
 ## 1. Product decisions (me, ~an evening)
 
-- [ ] Banner visibility rules — recommendation: hide in red mode.
-- [ ] Remove-ads price (€1.99 suggested).
-- [ ] Placement of the "Remove ads" entry point (edit-mode ⋮ menu suggested).
+- [x] Banner visibility rules — decided: always visible, including red
+      mode (no `updateAdVisibility()`/hide-in-red-mode logic).
+- [x] Remove-ads price: €2.50.
+- [x] Placement of the "Remove ads" entry point — decided: edit-mode ⋮
+      menu, alongside "Reset to defaults".
 
 ## 2. Accounts & paperwork (me, days of calendar time — start early)
 
-- [ ] Google Play Console account ($25 one-time, identity verification).
+- [x] Google Play Console account ($25 one-time, identity verification).
       Personal accounts need **20 closed testers for 14 days** before a
-      production release — this is the longest pole.
-- [ ] AdMob account: payment + tax info, register app, create one real
+      production release — this is the longest pole; line up testers next
+      so the 14-day clock can start as soon as a build is ready.
+- [x] AdMob account: payment + tax info, register app, create one real
       banner ad unit. App verification can take days before real ads serve.
-- [ ] Privacy policy covering AdMob data collection, hosted at a public URL
+- [x] Privacy policy covering AdMob data collection, hosted at a public URL
       (GitHub Pages is fine). Required by both AdMob and Play.
 
 ## 3. Production-ready ads (code, ~half a day)
 
-- [ ] Real App ID / ad unit via build config; debug builds keep using test
-      IDs (clicking real ads during development risks an AdMob ban).
-- [ ] UMP consent flow (required for EEA): request consent info on launch,
-      show form if required, only then load ads.
-- [ ] Implement the visibility rules from step 1.
+- [x] Real App ID / ad unit via build config; debug always uses test IDs,
+      release reads `DISPLAYTORCH_ADMOB_APP_ID` /
+      `DISPLAYTORCH_BANNER_AD_UNIT_ID` gradle properties (falls back to
+      test IDs until the AdMob account exists — set both before release!).
+- [x] UMP consent flow: consent info requested on launch, form shown if
+      required, ads only load once `canRequestAds()`. End-to-end test with
+      the real AdMob account's GDPR message is still open (needs step 2).
+- [x] Banner always visible, including red mode (see step 1).
 
 ## 4. Play Billing: remove-ads IAP (code, ~a day)
 
-- [ ] Billing Library, non-consumable `remove_ads` product, purchase +
-      acknowledge flow, restore-on-launch, cached entitlement flag.
-- [ ] Guard: entitled users get no AdView, no MobileAds init, full-screen
-      tap target — the app exactly as it is today.
-- [ ] Mid-session purchase removes the banner immediately.
-- [ ] Create the product in Play Console; test with license-tester accounts
-      (requires step 2).
+- [x] Billing Library, non-consumable `remove_ads` product, purchase +
+      acknowledge flow, restore-on-launch, cached entitlement flag. See
+      `BillingManager.kt` (Billing Library 9, entitlement cached in
+      `SharedPreferences`).
+- [x] Guard: entitled users get no AdView, no MobileAds init, full-screen
+      tap target — the app exactly as it is today. `setupAdBanner()` is
+      skipped entirely when `BillingManager.adsRemoved` is true on launch.
+- [x] Mid-session purchase removes the banner immediately, via the
+      `onAdsRemoved` callback tearing down the `AdView`/`adContainer`.
+- [x] Create the `remove_ads` product in Play Console and upload a build to
+      a testing track.
+- [ ] Test the purchase flow with a license-tester account (add tester under
+      Setup → License testing, opt in via the track's testing link, install
+      from the Play Store listing — not sideloaded — then buy via edit-mode
+      ⋮ → "Remove ads").
 
 ## 5. Release plumbing (~half a day)
 
-- [ ] Create release keystore; wire the existing `DISPLAYTORCH_*` signing
+- [x] Create release keystore; wire the existing `DISPLAYTORCH_*` signing
       properties in `app/build.gradle.kts`.
 - [ ] Smoke-test the minified release build (R8 with ads + billing SDKs).
 - [ ] Play data-safety form matching AdMob's collection, ads declaration,
       store listing with the reading/camping-light positioning.
+- [ ] Update Play Store screenshots and description images — the existing
+      screenshots show a full-screen display with no ad banner. The store
+      listing must reflect the actual release experience: the bottom ad
+      banner is visible in all paid builds, and the "Remove ads" option
+      appears in the edit-mode ⋮ menu. Screenshots taken with the test
+      banner (test ID `ca-app-pub-3940256099942544/9214589741`) are fine
+      for the listing; just don't use ad-free captures.
 
 ## 6. Closed testing → production (calendar time)
 

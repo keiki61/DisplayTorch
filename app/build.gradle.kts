@@ -2,6 +2,11 @@ plugins {
     alias(libs.plugins.android.application)
 }
 
+// Google sample IDs: only serve test ads. Real IDs come from gradle
+// properties (like the signing config) once the AdMob account exists.
+val testAdmobAppId = "ca-app-pub-3940256099942544~3347511713"
+val testBannerAdUnitId = "ca-app-pub-3940256099942544/9214589741"
+
 android {
     namespace = "com.github.keiki.displaytorch"
     compileSdk = 36
@@ -45,7 +50,15 @@ android {
     }
 
     buildTypes {
+        debug {
+            manifestPlaceholders["admobAppId"] = testAdmobAppId
+            buildConfigField("String", "BANNER_AD_UNIT_ID", "\"$testBannerAdUnitId\"")
+        }
         release {
+            val admobAppId = findProperty("DISPLAYTORCH_ADMOB_APP_ID") as String? ?: testAdmobAppId
+            val bannerAdUnitId = findProperty("DISPLAYTORCH_BANNER_AD_UNIT_ID") as String? ?: testBannerAdUnitId
+            manifestPlaceholders["admobAppId"] = admobAppId
+            buildConfigField("String", "BANNER_AD_UNIT_ID", "\"$bannerAdUnitId\"")
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
@@ -71,4 +84,7 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.play.services.ads)
+    implementation(libs.user.messaging.platform)
+    implementation(libs.billing.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
 }
