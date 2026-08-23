@@ -69,7 +69,11 @@ open.
 
 - [x] Create release keystore; wire the existing `DISPLAYTORCH_*` signing
       properties in `app/build.gradle.kts`.
-- [ ] Smoke-test the minified release build (R8 with ads + billing SDKs).
+- [x] Smoke-test the minified release build — R8 completed cleanly, all AdMob
+      (`AdActivity`, `MobileAdsInitProvider`, `AdService`) and Billing
+      (`ProxyBillingActivity`, `ProxyBillingActivityV2`) components present.
+      Real AdMob App ID and banner unit ID from `gradle.properties` correctly
+      substituted. APK 3.9 MB, AAB 6.5 MB. No ProGuard rules needed.
 - [ ] Play data-safety form matching AdMob's collection, ads declaration,
       store listing with the reading/camping-light positioning.
 - [ ] Update Play Store screenshots and description images — the existing
