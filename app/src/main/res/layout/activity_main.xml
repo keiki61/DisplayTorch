@@ -8,6 +8,20 @@
     tools:context=".MainActivity"
     android:background="@color/grey">
 
+    <!-- Frame shown only in edit mode. Bottom stops at the ad banner so the
+         frame surrounds the torch area, not the ad. -->
+    <View android:id="@+id/editModeBorder"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/edit_mode_border_margin"
+        android:background="@drawable/bg_edit_mode_border"
+        android:importantForAccessibility="no"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/adContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView android:id="@+id/brightnessTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,10 +43,24 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/debugInfoTextView"
+        app:layout_constraintBottom_toTopOf="@id/editHintTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/brightnessTextView" />
+
+    <TextView android:id="@+id/editHintTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:text="@string/edit_mode_hint"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/debugInfoTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editInfoTextView" />
 
     <TextView android:id="@+id/debugInfoTextView"
         android:layout_width="wrap_content"
@@ -45,7 +73,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editInfoTextView" />
+        app:layout_constraintTop_toBottomOf="@id/editHintTextView" />
 
     <FrameLayout android:id="@+id/adContainer"
         android:layout_width="0dp"

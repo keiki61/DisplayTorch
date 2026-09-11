@@ -1,3 +1,7 @@
 <resources>
     <dimen name="edit_menu_button_margin">16dp</dimen>
+    <!-- Inset from the display edge so the frame is not clipped by rounded corners. -->
+    <dimen name="edit_mode_border_margin">10dp</dimen>
+    <dimen name="edit_mode_border_width">3dp</dimen>
+    <dimen name="edit_mode_border_radius">28dp</dimen>
 </resources>

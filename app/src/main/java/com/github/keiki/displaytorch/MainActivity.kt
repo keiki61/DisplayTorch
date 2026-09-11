@@ -110,6 +110,19 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        // Keep the edit-mode frame inside the system bars; its bottom is already
+        // constrained to the ad banner, which applies the bottom inset itself.
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.editModeBorder)) { view, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            val baseMargin = resources.getDimensionPixelSize(R.dimen.edit_mode_border_margin)
+            view.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                topMargin = systemBars.top + baseMargin
+                leftMargin = systemBars.left + baseMargin
+                rightMargin = systemBars.right + baseMargin
+            }
+            insets
+        }
+
         currentBrightnessIndex = savedInstanceState?.getInt(KEY_BRIGHTNESS_INDEX) ?: DEFAULT_INDEX
         currentBackGroundColorWhite = savedInstanceState?.getBoolean(KEY_COLOR_WHITE) ?: true
         setBrightnessIndex(currentBrightnessIndex)
@@ -230,7 +243,10 @@ class MainActivity : AppCompatActivity() {
     private fun toggleEditMode() {
         isEditMode = !isEditMode
         getRootView().performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
-        findViewById<View>(R.id.resetMenuButton).visibility = if (isEditMode) View.VISIBLE else View.GONE
+        val chromeVisibility = if (isEditMode) View.VISIBLE else View.GONE
+        findViewById<View>(R.id.resetMenuButton).visibility = chromeVisibility
+        findViewById<View>(R.id.editModeBorder).visibility = chromeVisibility
+        findViewById<View>(R.id.editHintTextView).visibility = chromeVisibility
         updateBrightnessText()
     }
 
