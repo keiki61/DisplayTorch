@@ -304,10 +304,21 @@ class MainActivity : AppCompatActivity() {
 
         if (isEditMode) {
             editInfoTextView.text = getString(R.string.edit_mode_label, brightnessPercentage)
+            editInfoTextView.contentDescription =
+                getString(R.string.edit_mode_brightness_description, brightnessPercentage)
+            editInfoTextView.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                brightnessIconFor(brightnessLevels[currentBrightnessIndex].brightness), 0, 0, 0
+            )
             editInfoTextView.visibility = View.VISIBLE
         } else {
             editInfoTextView.visibility = View.GONE
         }
+    }
+
+    private fun brightnessIconFor(brightness: Float) = when {
+        brightness < 0.34f -> R.drawable.ic_brightness_low
+        brightness < 0.67f -> R.drawable.ic_brightness_medium
+        else -> R.drawable.ic_brightness_high
     }
 
     fun View.getBackgroundColor() = (background as? ColorDrawable?)?.color ?: Color.TRANSPARENT
