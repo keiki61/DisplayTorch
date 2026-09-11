@@ -1,0 +1,3 @@
+A short tutorial now appears on first launch, so the gestures are no longer hidden: two-finger tap for red light, hold to fine-tune the steps and reach the options. You can bring it back any time from the ⋮ menu.
+
+Edit mode is easier to recognise: it now draws a frame around the screen and shows what the volume keys do. Brightness is shown with a sun icon instead of a wordy label.

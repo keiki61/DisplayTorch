@@ -1,0 +1,3 @@
+Beim ersten Start erscheint jetzt eine kurze Anleitung, damit die Gesten nicht länger verborgen sind: Tippen mit zwei Fingern für Rotlicht, Gedrückthalten zum Feinjustieren der Stufen und für die Optionen. Über das ⋮-Menü lässt sie sich jederzeit erneut aufrufen.
+
+Der Bearbeitungsmodus ist besser zu erkennen: Er zeigt nun einen Rahmen um den Bildschirm und erklärt die Lautstärketasten. Die Helligkeit wird mit einem Sonnensymbol statt mit einem Wort angezeigt.
