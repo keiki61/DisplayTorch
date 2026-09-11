@@ -89,15 +89,49 @@ open.
       `ca-app-pub-3940256099942544/9214589741`) are fine for the listing;
       just don't use ad-free captures.
 
-## 6. Closed testing → production (calendar time)
+## 6. Introduce the functions — onboarding & discoverability (code, ~a day)
+
+Device testing showed the interaction model is not discoverable. Nothing on
+screen hints at any gesture, so everything past "tap to cycle" is effectively
+hidden. The edit-mode label made it worse: `%1$d%% · EDIT` / `· BEARBEITEN`
+read as a button or an instruction rather than a state, and has since been
+replaced by a brightness (sun) icon that grows with the level — which fixes the
+misleading wording but removes the last worded cue, so the mode itself now
+needs an introduction even more.
+
+- [ ] Inventory of what needs introducing — the starred ones have **no**
+      on-screen affordance whatsoever:
+      - Single tap — cycle to next brightness step (the only discoverable one)
+      - ★ Two-finger tap — toggle white ↔ red for night vision
+      - ★ Long press — enter edit mode
+      - ★ Volume up/down — cycle steps; fine-adjust the current step by ±1%
+        while in edit mode
+      - ★ Quick Settings tile (`TorchTileService`) — most users will never
+        learn this exists
+      - Edit-mode ⋮ menu — "Reset to defaults" and "Remove ads"; visible only
+        once you have already found edit mode, so the IAP is gated behind a
+        hidden gesture (a monetization problem, not just a UX one)
+- [ ] First-run overlay introducing the gestures, dismissible, shown once and
+      gated on a `seen_onboarding` flag in `SharedPreferences`.
+- [ ] Make it re-showable — a "How it works" entry in the ⋮ menu — so it is not
+      a one-shot that users lose forever after the first dismissal.
+- [ ] Re-test the edit-mode cue: confirm the ⋮ button appearing plus the
+      icon + % line actually read as "you are in edit mode". If not, add a
+      short hint line ("Volume keys adjust · tap to finish") rather than
+      restoring the "EDIT" wording.
+- [ ] Decide whether the "Remove ads" entry needs a second, non-hidden entry
+      point given the above.
+
+## 7. Closed testing → production (calendar time)
 
 - [ ] 14-day closed test — doubles as end-to-end testing of consent, ads,
-      and purchases on real devices.
+      purchases, and the new onboarding on real devices.
 - [ ] Promote to production.
 
-**Estimated effort:** 2–3 days of actual work, 3–5 weeks of calendar time
+**Estimated effort:** 3–4 days of actual work, 3–5 weeks of calendar time
 (dominated by Play's tester requirement and account verifications).
 
 ## Previously planned, unrelated to monetization
 
-- Onboarding tutorial after first install.
+- ~~Onboarding tutorial after first install.~~ Promoted to step 6 above after
+  device testing showed the hidden gestures are a real discoverability problem.
