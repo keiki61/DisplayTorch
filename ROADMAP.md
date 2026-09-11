@@ -89,36 +89,37 @@ open.
       `ca-app-pub-3940256099942544/9214589741`) are fine for the listing;
       just don't use ad-free captures.
 
-## 6. Introduce the functions — onboarding & discoverability (code, ~a day)
+## 6. Introduce the functions — onboarding & discoverability (code, ~half a day left)
 
 Device testing showed the interaction model is not discoverable. Nothing on
 screen hints at any gesture, so everything past "tap to cycle" is effectively
 hidden. The edit-mode label made it worse: `%1$d%% · EDIT` / `· BEARBEITEN`
-read as a button or an instruction rather than a state, and has since been
-replaced by a brightness (sun) icon that grows with the level — which fixes the
-misleading wording but removes the last worded cue, so the mode itself now
-needs an introduction even more.
+read as a button or an instruction rather than a state. It has been replaced by
+a brightness (sun) icon that grows with the level, and edit mode now announces
+itself with a screen frame plus a hint line.
 
-- [ ] Inventory of what needs introducing — the starred ones have **no**
-      on-screen affordance whatsoever:
+- [x] Edit-mode cue — done. The icon alone tested as too subtle, so edit mode
+      now draws a black frame inset from the display edge (changes the whole
+      screen shape, not just the centre) and shows a two-line hint below the
+      readout. Black stroke only, so red mode keeps night vision.
+- [x] Inventory of what needs introducing — the starred ones still have **no**
+      on-screen affordance:
       - Single tap — cycle to next brightness step (the only discoverable one)
       - ★ Two-finger tap — toggle white ↔ red for night vision
       - ★ Long press — enter edit mode
-      - ★ Volume up/down — cycle steps; fine-adjust the current step by ±1%
-        while in edit mode
+      - ~~Volume up/down~~ — the in-mode fine-adjust is now named by the edit
+        hint; cycling steps outside edit mode is still unannounced
       - ★ Quick Settings tile (`TorchTileService`) — most users will never
         learn this exists
       - Edit-mode ⋮ menu — "Reset to defaults" and "Remove ads"; visible only
         once you have already found edit mode, so the IAP is gated behind a
         hidden gesture (a monetization problem, not just a UX one)
 - [ ] First-run overlay introducing the gestures, dismissible, shown once and
-      gated on a `seen_onboarding` flag in `SharedPreferences`.
+      gated on a `seen_onboarding` flag in `SharedPreferences`. This is the
+      remaining bulk of the work — it has to cover two-finger tap, long press
+      and the Quick Settings tile.
 - [ ] Make it re-showable — a "How it works" entry in the ⋮ menu — so it is not
       a one-shot that users lose forever after the first dismissal.
-- [ ] Re-test the edit-mode cue: confirm the ⋮ button appearing plus the
-      icon + % line actually read as "you are in edit mode". If not, add a
-      short hint line ("Volume keys adjust · tap to finish") rather than
-      restoring the "EDIT" wording.
 - [ ] Decide whether the "Remove ads" entry needs a second, non-hidden entry
       point given the above.
 
