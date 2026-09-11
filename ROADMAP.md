@@ -74,15 +74,20 @@ open.
       (`ProxyBillingActivity`, `ProxyBillingActivityV2`) components present.
       Real AdMob App ID and banner unit ID from `gradle.properties` correctly
       substituted. APK 3.9 MB, AAB 6.5 MB. No ProGuard rules needed.
-- [ ] Play data-safety form matching AdMob's collection, ads declaration,
-      store listing with the reading/camping-light positioning.
-- [ ] Update Play Store screenshots and description images — the existing
-      screenshots show a full-screen display with no ad banner. The store
-      listing must reflect the actual release experience: the bottom ad
-      banner is visible in all paid builds, and the "Remove ads" option
-      appears in the edit-mode ⋮ menu. Screenshots taken with the test
-      banner (test ID `ca-app-pub-3940256099942544/9214589741`) are fine
-      for the listing; just don't use ad-free captures.
+- [ ] Play data-safety form matching AdMob's and Play Billing's data
+      collection, ads declaration.
+- [x] Store listing text (fastlane metadata, en-US + de-DE) updated to
+      reflect the ad-supported model and the "Remove ads" IAP — dropped the
+      "no ads / no tracking" claims, added a free-with-ads section, and
+      clarified that internet access is used only for the AdMob banner and
+      the Play Billing purchase flow (the app itself does no tracking).
+- [ ] Update Play Store screenshots — the existing screenshots show a
+      full-screen display with no ad banner. The store listing must reflect
+      the actual release experience: the bottom ad banner is visible in all
+      paid builds, and the "Remove ads" option appears in the edit-mode ⋮
+      menu. Screenshots taken with the test banner (test ID
+      `ca-app-pub-3940256099942544/9214589741`) are fine for the listing;
+      just don't use ad-free captures.
 
 ## 6. Closed testing → production (calendar time)
 
@@ -96,4 +101,3 @@ open.
 ## Previously planned, unrelated to monetization
 
 - Onboarding tutorial after first install.
-- Fastlane metadata.
