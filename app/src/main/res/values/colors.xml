@@ -5,4 +5,8 @@
     <color name="greyWhite">#B0B0B0</color>
     <color name="grey">#808080</color>
     <color name="red">#8B0000</color>
+    <color name="onboardingScrim">#CC000000</color>
+    <color name="onboardingCard">#1C1C1C</color>
+    <color name="onboardingText">#FFFFFFFF</color>
+    <color name="onboardingTextDim">#B3FFFFFF</color>
 </resources>

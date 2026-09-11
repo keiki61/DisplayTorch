@@ -8,5 +8,17 @@
     <string name="reset_confirm_message">Dadurch werden alle 5 Helligkeitsstufen auf ihre Standardwerte zurückgesetzt.</string>
     <string name="action_reset">Zurücksetzen</string>
     <string name="remove_ads">Werbung entfernen</string>
+    <string name="how_it_works">So funktioniert\'s</string>
+    <string name="onboarding_title">So funktioniert\'s</string>
+    <string name="onboarding_gesture_tap">Tippen</string>
+    <string name="onboarding_action_tap">Nächste Helligkeitsstufe</string>
+    <string name="onboarding_gesture_two_finger">Zwei Finger</string>
+    <string name="onboarding_action_two_finger">Rotlicht fürs Nachtsehen</string>
+    <string name="onboarding_gesture_hold">Gedrückt halten</string>
+    <string name="onboarding_action_hold">Stufen feinjustieren und Optionen wie „Werbung entfernen“ öffnen</string>
+    <string name="onboarding_gesture_volume">Lautstärketasten</string>
+    <string name="onboarding_action_volume">Helligkeitsstufe wechseln</string>
+    <string name="onboarding_tile_hint">Tipp: Füge die Display-Torch-Kachel zu den Schnelleinstellungen hinzu, um sie von überall einzuschalten.</string>
+    <string name="onboarding_dismiss">Verstanden</string>
     <string name="tile_label">Taschenlampe</string>
 </resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- Dark card rather than light: the app is used at night, and a bright
+         panel would defeat the point of the red night-vision mode. -->
+    <solid android:color="@color/onboardingCard" />
+    <corners android:radius="20dp" />
+</shape>

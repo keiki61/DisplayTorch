@@ -12,5 +12,17 @@
     <string name="reset_confirm_message">This restores all 5 brightness steps to their default values.</string>
     <string name="action_reset">Reset</string>
     <string name="remove_ads">Remove ads</string>
+    <string name="how_it_works">How it works</string>
+    <string name="onboarding_title">How it works</string>
+    <string name="onboarding_gesture_tap">Tap</string>
+    <string name="onboarding_action_tap">Next brightness step</string>
+    <string name="onboarding_gesture_two_finger">Two fingers</string>
+    <string name="onboarding_action_two_finger">Red light for night vision</string>
+    <string name="onboarding_gesture_hold">Hold</string>
+    <string name="onboarding_action_hold">Fine-tune steps, and open options such as Remove ads</string>
+    <string name="onboarding_gesture_volume">Volume keys</string>
+    <string name="onboarding_action_volume">Change brightness step</string>
+    <string name="onboarding_tile_hint">Tip: add the Display Torch tile to your Quick Settings to switch it on from anywhere.</string>
+    <string name="onboarding_dismiss">Got it</string>
     <string name="tile_label">Torch</string>
 </resources>

@@ -30,6 +30,7 @@ import com.google.android.ump.UserMessagingPlatform
 private const val KEY_BRIGHTNESS_INDEX = "brightnessIndex"
 private const val KEY_COLOR_WHITE = "colorWhite"
 private const val PREF_NAME = "brightness_prefs"
+private const val KEY_SEEN_ONBOARDING = "seenOnboarding"
 private const val DEFAULT_INDEX = 0
 private const val EDIT_BRIGHTNESS_STEP = 0.01f
 
@@ -128,6 +129,11 @@ class MainActivity : AppCompatActivity() {
         setBrightnessIndex(currentBrightnessIndex)
 
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+
+        findViewById<View>(R.id.onboardingDismissButton).setOnClickListener { dismissOnboarding() }
+        if (!getSharedPreferences(PREF_NAME, MODE_PRIVATE).getBoolean(KEY_SEEN_ONBOARDING, false)) {
+            showOnboarding()
+        }
 
         billingManager = BillingManager(this, lifecycleScope) { removeAdBanner() }
         if (!billingManager.adsRemoved) {
@@ -256,6 +262,7 @@ class MainActivity : AppCompatActivity() {
             menu.findItem(R.id.action_remove_ads).isVisible = !billingManager.adsRemoved
             setOnMenuItemClickListener { item ->
                 when (item.itemId) {
+                    R.id.action_how_it_works -> { showOnboarding(); true }
                     R.id.action_reset -> { showResetConfirmationDialog(); true }
                     R.id.action_remove_ads -> { billingManager.launchPurchaseFlow(); true }
                     else -> false
@@ -264,6 +271,25 @@ class MainActivity : AppCompatActivity() {
             show()
         }
     }
+
+    private fun showOnboarding() {
+        findViewById<View>(R.id.onboardingOverlay).visibility = View.VISIBLE
+        // The first step is only 2% bright, which would leave the tutorial
+        // unreadable on a fresh install. Drop the window override so the phone
+        // uses its own brightness setting; dismissing restores the step's value.
+        window.attributes = window.attributes.apply {
+            screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE
+        }
+    }
+
+    private fun dismissOnboarding() {
+        findViewById<View>(R.id.onboardingOverlay).visibility = View.GONE
+        getSharedPreferences(PREF_NAME, MODE_PRIVATE).edit { putBoolean(KEY_SEEN_ONBOARDING, true) }
+        setBrightnessIndex(currentBrightnessIndex)
+    }
+
+    private fun isOnboardingVisible() =
+        findViewById<View>(R.id.onboardingOverlay).visibility == View.VISIBLE
 
     private fun showResetConfirmationDialog() {
         MaterialAlertDialogBuilder(this)
@@ -340,6 +366,12 @@ class MainActivity : AppCompatActivity() {
     fun View.getBackgroundColor() = (background as? ColorDrawable?)?.color ?: Color.TRANSPARENT
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        // Swallow the volume keys while the tutorial is up, so brightness does
+        // not change behind it.
+        if (isOnboardingVisible() &&
+            (keyCode == KeyEvent.KEYCODE_VOLUME_UP || keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)
+        ) return true
+
         return when (keyCode) {
             KeyEvent.KEYCODE_VOLUME_UP -> {
                 if (isEditMode) adjustCurrentStepBrightness(EDIT_BRIGHTNESS_STEP)

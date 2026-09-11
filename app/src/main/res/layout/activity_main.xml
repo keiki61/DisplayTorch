@@ -97,4 +97,84 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- First-run tutorial. Last child so it sits on top; clickable so it
+         swallows the dismissing tap instead of cycling the brightness. -->
+    <FrameLayout android:id="@+id/onboardingOverlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/onboardingScrim"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="24dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_onboarding_card"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/onboarding_title"
+                    android:textColor="@color/onboardingText"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TableLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:shrinkColumns="1">
+
+                    <TableRow>
+                        <TextView style="@style/OnboardingGesture" android:text="@string/onboarding_gesture_tap" />
+                        <TextView style="@style/OnboardingAction" android:text="@string/onboarding_action_tap" />
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView style="@style/OnboardingGesture" android:text="@string/onboarding_gesture_two_finger" />
+                        <TextView style="@style/OnboardingAction" android:text="@string/onboarding_action_two_finger" />
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView style="@style/OnboardingGesture" android:text="@string/onboarding_gesture_hold" />
+                        <TextView style="@style/OnboardingAction" android:text="@string/onboarding_action_hold" />
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView style="@style/OnboardingGesture" android:text="@string/onboarding_gesture_volume" />
+                        <TextView style="@style/OnboardingAction" android:text="@string/onboarding_action_volume" />
+                    </TableRow>
+                </TableLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/onboarding_tile_hint"
+                    android:textColor="@color/onboardingTextDim"
+                    android:textSize="13sp" />
+
+                <Button android:id="@+id/onboardingDismissButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/onboarding_dismiss" />
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
