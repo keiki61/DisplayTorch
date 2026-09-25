@@ -37,3 +37,5 @@ google-services.json
 # Claude Code
 .claude/settings.local.json
 .claude/worktrees/
+/.mcp.json
+/.claude/settings.json

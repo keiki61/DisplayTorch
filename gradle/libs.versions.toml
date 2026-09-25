@@ -10,6 +10,7 @@ playServicesAds = "25.4.0"
 userMessagingPlatform = "4.0.0"
 billing = "9.1.0"
 lifecycleRuntimeKtx = "2.11.0"
+junit = "4.13.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -21,6 +22,7 @@ play-services-ads = { group = "com.google.android.gms", name = "play-services-ad
 user-messaging-platform = { group = "com.google.android.ump", name = "user-messaging-platform", version.ref = "userMessagingPlatform" }
 billing-ktx = { group = "com.android.billingclient", name = "billing-ktx", version.ref = "billing" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

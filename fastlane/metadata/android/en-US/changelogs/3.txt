@@ -1,0 +1,9 @@
+The torch now works from the lock screen: tap the Quick Settings tile and the light comes on without unlocking.
+
+The first-run tutorial no longer competes with the ad-consent dialog, and menus, dialogs and consent forms are readable even at the dimmest step. A "Privacy options" entry in the ⋮ menu lets you change your ad-consent choice where that applies.
+
+"Remove ads" now tells you what happened: purchase completed, pending, cancelled, or Google Play unavailable.
+
+The app is usable with TalkBack: tap, hold and a "switch to red light" action are available to screen readers, and the current step is announced.
+
+Fixed the edit-mode frame being cut off by the navigation bar once ads are removed.

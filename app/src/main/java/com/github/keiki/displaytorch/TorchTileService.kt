@@ -4,20 +4,14 @@ import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Intent
 import android.os.Build
-import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 
+/**
+ * Quick Settings tile that opens the torch. [MainActivity] is `showWhenLocked`,
+ * so this also works from the lock screen without unlocking. Label and icon
+ * come from the manifest.
+ */
 class TorchTileService : TileService() {
-
-    override fun onStartListening() {
-        super.onStartListening()
-        qsTile?.apply {
-            state = Tile.STATE_INACTIVE
-            label = getString(R.string.tile_label)
-            icon = android.graphics.drawable.Icon.createWithResource(this@TorchTileService, R.drawable.ic_tile_torch)
-            updateTile()
-        }
-    }
 
     override fun onClick() {
         super.onClick()

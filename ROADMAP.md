@@ -60,7 +60,7 @@ open.
       `onAdsRemoved` callback tearing down the `AdView`/`adContainer`.
 - [x] Create the `remove_ads` product in Play Console and upload a build to
       a testing track.
-- [ ] Test the purchase flow with a license-tester account (add tester under
+- [x] Test the purchase flow with a license-tester account (add tester under
       Setup → License testing, opt in via the track's testing link, install
       from the Play Store listing — not sideloaded — then buy via edit-mode
       ⋮ → "Remove ads").
@@ -74,14 +74,14 @@ open.
       (`ProxyBillingActivity`, `ProxyBillingActivityV2`) components present.
       Real AdMob App ID and banner unit ID from `gradle.properties` correctly
       substituted. APK 3.9 MB, AAB 6.5 MB. No ProGuard rules needed.
-- [ ] Play data-safety form matching AdMob's and Play Billing's data
+- [x] Play data-safety form matching AdMob's and Play Billing's data
       collection, ads declaration.
 - [x] Store listing text (fastlane metadata, en-US + de-DE) updated to
       reflect the ad-supported model and the "Remove ads" IAP — dropped the
       "no ads / no tracking" claims, added a free-with-ads section, and
       clarified that internet access is used only for the AdMob banner and
       the Play Billing purchase flow (the app itself does no tracking).
-- [ ] Update Play Store screenshots — the existing screenshots show a
+- [x] Update Play Store screenshots — the existing screenshots show a
       full-screen display with no ad banner. The store listing must reflect
       the actual release experience: the bottom ad banner is visible in all
       paid builds, and the "Remove ads" option appears in the edit-mode ⋮
@@ -114,13 +114,13 @@ itself with a screen frame plus a hint line.
       - Edit-mode ⋮ menu — "Reset to defaults" and "Remove ads"; visible only
         once you have already found edit mode, so the IAP is gated behind a
         hidden gesture (a monetization problem, not just a UX one)
-- [ ] First-run overlay introducing the gestures, dismissible, shown once and
+- [x] First-run overlay introducing the gestures, dismissible, shown once and
       gated on a `seen_onboarding` flag in `SharedPreferences`. This is the
       remaining bulk of the work — it has to cover two-finger tap, long press
       and the Quick Settings tile.
-- [ ] Make it re-showable — a "How it works" entry in the ⋮ menu — so it is not
+- [x] Make it re-showable — a "How it works" entry in the ⋮ menu — so it is not
       a one-shot that users lose forever after the first dismissal.
-- [ ] Decide whether the "Remove ads" entry needs a second, non-hidden entry
+- [x] Decide whether the "Remove ads" entry needs a second, non-hidden entry
       point given the above.
 
 ## 7. Closed testing → production (calendar time)

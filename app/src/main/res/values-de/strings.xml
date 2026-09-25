@@ -1,5 +1,9 @@
 <resources>
     <string name="step_label">Stufe %1$d von %2$d</string>
+    <string name="torch_state_description">Stufe %1$d von %2$d, %3$s</string>
+    <string name="light_white">weißes Licht</string>
+    <string name="light_red">rotes Licht</string>
+    <string name="a11y_toggle_color">Zwischen weißem und rotem Licht wechseln</string>
     <string name="edit_mode_brightness_description">Helligkeit %1$d%%</string>
     <string name="edit_mode_hint">Lautstärketasten zum Anpassen\nTippen zum Beenden</string>
     <string name="edit_menu_button_description">Optionen</string>
@@ -8,6 +12,11 @@
     <string name="reset_confirm_message">Dadurch werden alle 5 Helligkeitsstufen auf ihre Standardwerte zurückgesetzt.</string>
     <string name="action_reset">Zurücksetzen</string>
     <string name="remove_ads">Werbung entfernen</string>
+    <string name="privacy_options">Datenschutzoptionen</string>
+    <string name="purchase_ads_removed">Werbung entfernt. Vielen Dank!</string>
+    <string name="purchase_pending">Kauf ausstehend. Die Werbung verschwindet, sobald Google Play den Kauf bestätigt.</string>
+    <string name="purchase_unavailable">Google Play Billing ist derzeit nicht verfügbar.</string>
+    <string name="purchase_failed">Kauf fehlgeschlagen. Bitte später erneut versuchen.</string>
     <string name="how_it_works">So funktioniert\'s</string>
     <string name="onboarding_title">So funktioniert\'s</string>
     <string name="onboarding_gesture_tap">Tippen</string>

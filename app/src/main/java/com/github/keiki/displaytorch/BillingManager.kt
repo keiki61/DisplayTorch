@@ -23,6 +23,22 @@ private const val REMOVE_ADS_PRODUCT_ID = "remove_ads"
 private const val PREF_NAME = "billing_prefs"
 private const val KEY_ADS_REMOVED = "ads_removed"
 
+/** What the UI should tell the user about a purchase. */
+sealed interface PurchaseEvent {
+    /** The entitlement just flipped to "owned": bought now, or restored on this device. */
+    data object AdsRemoved : PurchaseEvent
+
+    /** Play accepted the purchase but has not confirmed payment yet. */
+    data object Pending : PurchaseEvent
+
+    data object Cancelled : PurchaseEvent
+
+    /** Billing is not connected, or the product could not be fetched. */
+    data object Unavailable : PurchaseEvent
+
+    data object Failed : PurchaseEvent
+}
+
 /**
  * Owns the Play Billing connection for the non-consumable "remove_ads" product.
  * Entitlement is cached in SharedPreferences so it's known synchronously on
@@ -31,7 +47,7 @@ private const val KEY_ADS_REMOVED = "ads_removed"
 class BillingManager(
     private val activity: Activity,
     private val scope: CoroutineScope,
-    private val onAdsRemoved: () -> Unit
+    private val listener: (PurchaseEvent) -> Unit
 ) : PurchasesUpdatedListener {
 
     private val prefs = activity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
@@ -42,7 +58,7 @@ class BillingManager(
             field = value
             if (changed) {
                 prefs.edit { putBoolean(KEY_ADS_REMOVED, true) }
-                onAdsRemoved()
+                listener(PurchaseEvent.AdsRemoved)
             }
         }
 
@@ -69,6 +85,10 @@ class BillingManager(
     }
 
     fun launchPurchaseFlow() {
+        if (!billingClient.isReady) {
+            listener(PurchaseEvent.Unavailable)
+            return
+        }
         scope.launch {
             val params = QueryProductDetailsParams.newBuilder()
                 .setProductList(
@@ -81,8 +101,14 @@ class BillingManager(
                 )
                 .build()
             val result = billingClient.queryProductDetails(params)
-            val productDetails = result.productDetailsList?.firstOrNull() ?: return@launch
-            val offerToken = productDetails.oneTimePurchaseOfferDetails?.offerToken ?: return@launch
+            val productDetails = result.productDetailsList?.firstOrNull()
+            val offerToken = productDetails?.oneTimePurchaseOfferDetails?.offerToken
+            if (result.billingResult.responseCode != BillingClient.BillingResponseCode.OK ||
+                productDetails == null || offerToken == null
+            ) {
+                listener(PurchaseEvent.Unavailable)
+                return@launch
+            }
             val flowParams = BillingFlowParams.newBuilder()
                 .setProductDetailsParamsList(
                     listOf(
@@ -93,13 +119,24 @@ class BillingManager(
                     )
                 )
                 .build()
-            billingClient.launchBillingFlow(activity, flowParams)
+            val launchResult = billingClient.launchBillingFlow(activity, flowParams)
+            if (launchResult.responseCode != BillingClient.BillingResponseCode.OK) {
+                listener(PurchaseEvent.Failed)
+            }
         }
     }
 
     override fun onPurchasesUpdated(billingResult: BillingResult, purchases: MutableList<Purchase>?) {
-        if (billingResult.responseCode != BillingClient.BillingResponseCode.OK || purchases == null) return
-        scope.launch { purchases.forEach { handlePurchase(it) } }
+        when (billingResult.responseCode) {
+            BillingClient.BillingResponseCode.OK ->
+                scope.launch { purchases.orEmpty().forEach { handlePurchase(it) } }
+            BillingClient.BillingResponseCode.USER_CANCELED ->
+                listener(PurchaseEvent.Cancelled)
+            BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED ->
+                scope.launch { restorePurchases() }
+            else ->
+                listener(PurchaseEvent.Failed)
+        }
     }
 
     private suspend fun restorePurchases() {
@@ -111,17 +148,18 @@ class BillingManager(
     }
 
     private suspend fun handlePurchase(purchase: Purchase) {
-        if (purchase.purchaseState != Purchase.PurchaseState.PURCHASED ||
-            !purchase.products.contains(REMOVE_ADS_PRODUCT_ID)
-        ) {
-            return
-        }
-        adsRemoved = true
-        if (!purchase.isAcknowledged) {
-            val params = AcknowledgePurchaseParams.newBuilder()
-                .setPurchaseToken(purchase.purchaseToken)
-                .build()
-            billingClient.acknowledgePurchase(params)
+        if (!purchase.products.contains(REMOVE_ADS_PRODUCT_ID)) return
+        when (purchase.purchaseState) {
+            Purchase.PurchaseState.PURCHASED -> {
+                adsRemoved = true
+                if (!purchase.isAcknowledged) {
+                    val params = AcknowledgePurchaseParams.newBuilder()
+                        .setPurchaseToken(purchase.purchaseToken)
+                        .build()
+                    billingClient.acknowledgePurchase(params)
+                }
+            }
+            Purchase.PurchaseState.PENDING -> listener(PurchaseEvent.Pending)
         }
     }
 

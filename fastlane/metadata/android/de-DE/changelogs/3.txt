@@ -1,0 +1,9 @@
+Die Taschenlampe funktioniert jetzt vom Sperrbildschirm aus: Kachel in den Schnelleinstellungen antippen, und das Licht geht ohne Entsperren an.
+
+Die Anleitung beim ersten Start kollidiert nicht mehr mit dem Dialog zur Werbeeinwilligung, und Menüs, Dialoge und Einwilligungsformulare sind auch auf der dunkelsten Stufe lesbar. Über „Datenschutzoptionen“ im ⋮-Menü lässt sich die Werbeeinwilligung ändern, wo das gilt.
+
+„Werbung entfernen“ meldet jetzt, was passiert ist: Kauf abgeschlossen, ausstehend, abgebrochen oder Google Play nicht verfügbar.
+
+Die App ist mit TalkBack bedienbar: Tippen, Halten und eine Aktion „Rotlicht umschalten“ stehen Screenreadern zur Verfügung, die aktuelle Stufe wird angesagt.
+
+Behoben: Der Rahmen im Bearbeitungsmodus wurde nach dem Entfernen der Werbung von der Navigationsleiste abgeschnitten.

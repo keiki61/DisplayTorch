@@ -25,7 +25,8 @@
     <TextView android:id="@+id/brightnessTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:importantForAccessibility="no"
+        tools:text="Step 1 of 5"
         android:textColor="@color/black"
         android:textSize="48sp"
         app:layout_constraintBottom_toTopOf="@id/editInfoTextView"
@@ -82,7 +83,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView android:id="@+id/resetMenuButton"
+    <TextView android:id="@+id/editMenuButton"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginTop="@dimen/edit_menu_button_margin"

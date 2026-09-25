@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name" translatable="false">Display Torch</string>
     <string name="step_label">Step %1$d of %2$d</string>
+    <string name="torch_state_description">Step %1$d of %2$d, %3$s</string>
+    <string name="light_white">white light</string>
+    <string name="light_red">red light</string>
+    <string name="a11y_toggle_color">Switch between white and red light</string>
     <string name="edit_mode_label" translatable="false">%1$d%%</string>
     <string name="edit_mode_brightness_description">Brightness %1$d%%</string>
     <string name="edit_mode_hint">Volume keys to adjust\nTap to finish</string>
@@ -12,6 +16,11 @@
     <string name="reset_confirm_message">This restores all 5 brightness steps to their default values.</string>
     <string name="action_reset">Reset</string>
     <string name="remove_ads">Remove ads</string>
+    <string name="privacy_options">Privacy options</string>
+    <string name="purchase_ads_removed">Ads removed. Thank you!</string>
+    <string name="purchase_pending">Purchase pending. Ads disappear once Google Play confirms it.</string>
+    <string name="purchase_unavailable">Google Play Billing is not available right now.</string>
+    <string name="purchase_failed">Purchase failed. Please try again later.</string>
     <string name="how_it_works">How it works</string>
     <string name="onboarding_title">How it works</string>
     <string name="onboarding_gesture_tap">Tap</string>

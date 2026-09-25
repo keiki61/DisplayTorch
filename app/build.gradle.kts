@@ -15,19 +15,20 @@ android {
         applicationId = "com.github.keiki.displaytorch"
         minSdk = 26
         targetSdk = 36
-        versionCode = 2
-        versionName = "1.1"
+        versionCode = 3
+        versionName = "1.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildFeatures {
         buildConfig = true
+        viewBinding = true
     }
 
     androidResources {
-        // Erzeugt locales_config.xml aus den vorhandenen values-*-Ordnern, damit
-        // Android 13+ die App in der Sprachauswahl der Systemeinstellungen fuehrt.
+        // Generates locales_config.xml from the existing values-* folders so
+        // Android 13+ lists the app in the system settings' language picker.
         generateLocaleConfig = true
     }
 
@@ -87,4 +88,6 @@ dependencies {
     implementation(libs.user.messaging.platform)
     implementation(libs.billing.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+
+    testImplementation(libs.junit)
 }
