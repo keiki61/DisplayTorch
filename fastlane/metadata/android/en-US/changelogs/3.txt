@@ -1,9 +1,3 @@
-The torch now works from the lock screen: tap the Quick Settings tile and the light comes on without unlocking.
+Display Torch turns your screen into a soft, adjustable light: five brightness steps and a red night-vision mode. Tap to cycle brightness, two-finger tap for red light, hold to fine-tune and reach options — a first-run tutorial (reopenable from the ⋮ menu) walks you through it. A Quick Settings tile launches it from the lock screen. Fully usable with TalkBack.
 
-The first-run tutorial no longer competes with the ad-consent dialog, and menus, dialogs and consent forms are readable even at the dimmest step. A "Privacy options" entry in the ⋮ menu lets you change your ad-consent choice where that applies.
-
-"Remove ads" now tells you what happened: purchase completed, pending, cancelled, or Google Play unavailable.
-
-The app is usable with TalkBack: tap, hold and a "switch to red light" action are available to screen readers, and the current step is announced.
-
-Fixed the edit-mode frame being cut off by the navigation bar once ads are removed.
+Free, with a small banner ad; a one-time "Remove ads" purchase is available.

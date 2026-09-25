@@ -17,6 +17,10 @@ Why use a display flashlight instead of the camera torch?
 • Red mode is handy for astronomy, camping, and night navigation, and is especially kind to sleepy eyes.
 • Works on devices without a camera flash.
 
+A personal note:
+
+I built Display Torch because I didn't want to use my phone's blinding flashlight at night to sneak into my kids' rooms. For a while I kept a specific bright webpage open instead — but that wasn't a great solution either. So I built this app. My wife and I are very happy with it and use it every day.
+
 Free & ad-supported:
 
 Display Torch is free, supported by a small banner ad at the bottom of the screen (Google AdMob). Prefer to use it without ads? A one-time in-app purchase removes the banner for good — no subscription, no recurring charges.

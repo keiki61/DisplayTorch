@@ -17,6 +17,10 @@ Warum eine Bildschirm-Taschenlampe statt der Kamera-Lampe?
 • Der Rotlichtmodus eignet sich für Astronomie, Camping und Navigation bei Nacht – und ist besonders angenehm für müde Augen.
 • Funktioniert auch auf Geräten ohne Kamera-Blitz.
 
+Ein persönliches Wort:
+
+Ich habe Display Torch entwickelt, weil ich nachts nicht die grelle Taschenlampe meines Handys nutzen wollte, um leise ins Zimmer der Kinder zu schleichen. Eine Zeit lang hatte ich stattdessen immer eine bestimmte helle Webseite geöffnet – aber auch das war für mich keine gute Lösung. So entstand diese App. Meine Frau und ich sind damit sehr zufrieden und nutzen sie täglich.
+
 Kostenlos mit Werbung:
 
 Display Torch ist kostenlos und finanziert sich über ein kleines Werbebanner am unteren Bildschirmrand (Google AdMob). Wer die App lieber ohne Werbung nutzen möchte, kann sie über einen einmaligen In-App-Kauf dauerhaft entfernen – kein Abo, keine wiederkehrenden Kosten.
